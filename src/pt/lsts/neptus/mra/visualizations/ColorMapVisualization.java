@@ -547,4 +547,9 @@ public class ColorMapVisualization extends JPanel implements MRAVisualization, A
         //nothing
     }
 
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.container=panel;
+    }
+
 }

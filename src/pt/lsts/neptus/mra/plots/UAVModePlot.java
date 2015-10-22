@@ -49,10 +49,6 @@ import pt.lsts.neptus.util.ImageUtils;
 @PluginDescription(name="UAV Mode", author = "José Braga")
 public class UAVModePlot extends PiePlot {
 
-    public UAVModePlot(MRAPanel panel) {
-        super(panel);
-    }
-
     @Override
     public boolean canBeApplied(LsfIndex index) {
         return index.containsMessagesOfType("AutopilotMode");
@@ -88,5 +84,10 @@ public class UAVModePlot extends PiePlot {
         }
 
         return "";
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 }

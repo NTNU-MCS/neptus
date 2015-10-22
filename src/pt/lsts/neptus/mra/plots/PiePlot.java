@@ -46,6 +46,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 import pt.lsts.imc.lsf.LsfIndex;
+import pt.lsts.neptus.NeptusLog;
 import pt.lsts.neptus.data.Pair;
 import pt.lsts.neptus.i18n.I18n;
 import pt.lsts.neptus.mra.LogMarker;
@@ -69,9 +70,6 @@ public abstract class PiePlot implements LLFChart, LogMarkerListener {
     protected LinkedHashMap<String, Double> sums = new LinkedHashMap<>();
     //protected double total = 0;
     
-    public PiePlot(MRAPanel panel) {
-        this.mraPanel = panel;
-    }
     @Override
     public String getName() {
         return PluginUtils.getPluginName(getClass());
@@ -238,5 +236,11 @@ public abstract class PiePlot implements LLFChart, LogMarkerListener {
     @Override
     public void goToMarker(LogMarker marker) {
 
+    }
+    
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        NeptusLog.pub().info("HELLO FROM PiePlot:initVisualization");
+        this.mraPanel=panel;
     }
 }

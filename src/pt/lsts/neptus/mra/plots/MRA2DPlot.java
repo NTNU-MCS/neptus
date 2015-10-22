@@ -50,6 +50,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import pt.lsts.imc.lsf.LsfIndex;
+import pt.lsts.neptus.NeptusLog;
 import pt.lsts.neptus.i18n.I18n;
 import pt.lsts.neptus.mra.LogMarker;
 import pt.lsts.neptus.mra.LogStatisticsItem;
@@ -69,9 +70,6 @@ public abstract class MRA2DPlot implements LLFChart, LogMarkerListener {
     MRAPanel mraPanel;
     private XYSeries markerSeries;
 
-    public MRA2DPlot(MRAPanel panel) {
-        this.mraPanel = panel;
-    }
     @Override
     public String getName() {
         return PluginUtils.getPluginName(getClass());
@@ -224,6 +222,11 @@ public abstract class MRA2DPlot implements LLFChart, LogMarkerListener {
     @Override
     public void onShow() {
         //nothing
+    }
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        NeptusLog.pub().info("HELLO FROM MRA2DPlot:initVisualization");
+        this.mraPanel=panel;
     }
 
     public XYSeries getMarkerSeries() {

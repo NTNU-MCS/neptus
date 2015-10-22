@@ -36,7 +36,6 @@ import javax.swing.ImageIcon;
 import pt.lsts.imc.CpuUsage;
 import pt.lsts.imc.lsf.LsfIndex;
 import pt.lsts.imc.lsf.LsfIterator;
-import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.plugins.PluginDescription;
 import pt.lsts.neptus.util.ImageUtils;
 
@@ -46,10 +45,6 @@ import pt.lsts.neptus.util.ImageUtils;
  */
 @PluginDescription(name="CPU Usage (total)", active=false)
 public class TotalCpuPlot extends MRATimeSeriesPlot {
-
-    public TotalCpuPlot(MRAPanel panel) {
-        super(panel);
-    }
 
     @Override
     public boolean canBeApplied(LsfIndex index) {

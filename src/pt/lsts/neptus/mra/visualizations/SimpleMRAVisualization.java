@@ -59,8 +59,7 @@ public abstract class SimpleMRAVisualization extends JPanel implements MRAVisual
     protected double timestep;
     protected MRAPanel panel;
 
-    public SimpleMRAVisualization(MRAPanel panel) {
-        this.mraPanel = panel;
+    public SimpleMRAVisualization() {
     }
 
     @Override
@@ -105,5 +104,9 @@ public abstract class SimpleMRAVisualization extends JPanel implements MRAVisual
     @Override
     public void onCleanup() {
         mraPanel = null;
+    }
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
     }
 }

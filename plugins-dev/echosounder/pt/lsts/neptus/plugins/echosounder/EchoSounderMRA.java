@@ -84,20 +84,6 @@ public class EchoSounderMRA extends JPanel implements MRAVisualization {
 
     private EchoSounderMRARuler ruler;
 
-    public EchoSounderMRA(MRAPanel panel) {
-        mraPanel = panel;
-
-        this.addComponentListener(new ComponentAdapter() {
-            /* (non-Javadoc)
-             * @see java.awt.event.ComponentAdapter#componentResized(java.awt.event.ComponentEvent)
-             */
-            @Override
-            public void componentResized(ComponentEvent e) {
-                generateImage();
-            }
-        });
-    }
-
     @Override
     public boolean supportsVariableTimeSteps() {
         return true;
@@ -233,5 +219,17 @@ public class EchoSounderMRA extends JPanel implements MRAVisualization {
     @Override
     public void onShow() {
         //nothing
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
+        
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                generateImage();
+            }
+        });
     }
 }

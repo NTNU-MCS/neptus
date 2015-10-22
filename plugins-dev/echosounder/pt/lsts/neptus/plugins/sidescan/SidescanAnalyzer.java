@@ -40,6 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicSliderUI;
 
 import net.miginfocom.swing.MigLayout;
+import pt.lsts.neptus.NeptusLog;
 import pt.lsts.neptus.gui.Timeline;
 import pt.lsts.neptus.gui.TimelineChangeListener;
 import pt.lsts.neptus.i18n.I18n;
@@ -72,11 +73,11 @@ public class SidescanAnalyzer extends JPanel implements MRAVisualization, Timeli
     private ArrayList<LogMarker> markerList = new ArrayList<LogMarker>();
     private SidescanParser ssParser;
 
-    public SidescanAnalyzer(MRAPanel panel) {
-        this.mraPanel = panel;
-    }
-
     public void initialize(IMraLogGroup source) {
+        
+        //System.out.println(mraPanel);
+        NeptusLog.pub().info("mraPanel: "+mraPanel);
+        
         ssParser = SidescanParserFactory.build(source);
 
         firstPingTime = ssParser.firstPingTimestamp();
@@ -246,6 +247,11 @@ public class SidescanAnalyzer extends JPanel implements MRAVisualization, Timeli
     @Override
     public void goToMarker(LogMarker marker) {
 
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
     }
 
 }

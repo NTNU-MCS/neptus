@@ -50,13 +50,6 @@ public class XYPlot extends MRA2DPlot {
 
     private LocationType ref;
 
-    /**
-     * @param panel
-     */
-    public XYPlot(MRAPanel panel) {
-        super(panel);
-    }
-
     @Override
     public boolean canBeApplied(LsfIndex index) {
         return index.containsMessagesOfType("EstimatedState");
@@ -131,6 +124,11 @@ public class XYPlot extends MRA2DPlot {
     @Override
     public void goToMarker(LogMarker marker) {
 
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 
 }

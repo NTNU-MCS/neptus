@@ -70,11 +70,6 @@ public class CTDSidePlot extends SimpleMRAVisualization {
     private JTabbedPane tabs = new JTabbedPane();
     private MRAPanel panel;
     
-    public CTDSidePlot(MRAPanel panel) {
-        super(panel);
-        this.panel = panel;
-    }
-    
     @Override
     public Type getType() {
         return Type.VISUALIZATION;
@@ -196,6 +191,11 @@ public class CTDSidePlot extends SimpleMRAVisualization {
         
         pmonitor.close();
         return tabs;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
     }
 
 }

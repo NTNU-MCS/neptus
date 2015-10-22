@@ -85,17 +85,10 @@ public abstract class MRATimeSeriesPlot implements LLFChart, LogMarkerListener {
             Color.blue.brighter().brighter(), Color.red.brighter().brighter(), Color.green.brighter().brighter(),
             Color.black, Color.pink, Color.yellow.darker(), Color.cyan, Color.magenta };
 
-    /**
-     * 
-     */
-    public MRATimeSeriesPlot(MRAPanel panel) {
-        this.mraPanel = panel;
-    }
-
     public Vector<String> getForbiddenSeries() {
         return forbiddenSeries;
     }
-
+    
     @Override
     public String getName() {
         return PluginUtils.getPluginName(getClass());
@@ -241,5 +234,10 @@ public abstract class MRATimeSeriesPlot implements LLFChart, LogMarkerListener {
     @Override
     public void goToMarker(LogMarker marker) {
 
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
     }
 }

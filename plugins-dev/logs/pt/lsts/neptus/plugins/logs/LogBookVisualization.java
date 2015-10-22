@@ -36,7 +36,6 @@ import java.util.Vector;
 import javax.swing.JComponent;
 
 import pt.lsts.imc.LogBookEntry;
-import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.importers.IMraLogGroup;
 import pt.lsts.neptus.mra.visualizations.SimpleMRAVisualization;
 import pt.lsts.neptus.plugins.PluginDescription;
@@ -48,13 +47,6 @@ import pt.lsts.neptus.plugins.logs.HistoryMessage.msg_type;
  */
 @PluginDescription(author="zp", name="Log Book", icon="pt/lsts/neptus/plugins/logs/log.png")
 public class LogBookVisualization extends SimpleMRAVisualization {
-
-    /**
-     * @param panel
-     */
-    public LogBookVisualization(MRAPanel panel) {
-        super(panel);
-    }
 
     private static final long serialVersionUID = 1L;
 

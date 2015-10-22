@@ -35,7 +35,6 @@ import org.jfree.data.xy.XYSeries;
 
 import pt.lsts.neptus.i18n.I18n;
 import pt.lsts.neptus.mra.LogMarker;
-import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.plugins.PluginDescription;
 import pt.lsts.imc.IMCMessage;
 import pt.lsts.imc.Salinity;
@@ -48,10 +47,6 @@ import pt.lsts.imc.lsf.LsfIterator;
  */
 @PluginDescription(name="Salinity Vs Depth plot", active=false)
 public class SalinityVsDepthPlot extends XYPlot {
-
-    public SalinityVsDepthPlot(MRAPanel panel) {
-        super(panel);
-    }
 
     @Override
     public String getName() {

@@ -128,14 +128,14 @@ public class LsfTreeMouseAdapter extends MouseAdapter {
             popup.add(I18n.text("Plot data")).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e) {
-                    panel.loadVisualization(new GenericPlot(fieldsToPlot.toArray(new String[0]), panel), true);
+                    panel.loadVisualization(new GenericPlot(panel,fieldsToPlot.toArray(new String[0])), true);
                 }
             });
 
             popup.add(I18n.text("Timeline Plot")).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e) {
-                    panel.loadVisualization(new ReplayPlot(panel, fieldsToPlot.toArray(new String[0])), true);
+                    panel.loadVisualization(new ReplayPlot(panel,fieldsToPlot.toArray(new String[0])), true);
                 }
             });
 
@@ -143,7 +143,7 @@ public class LsfTreeMouseAdapter extends MouseAdapter {
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e) {
 
-                    LLFChart chart = new GenericPlot(fieldsToPlot.toArray(new String[0]), panel);
+                    LLFChart chart = new GenericPlot(panel,fieldsToPlot.toArray(new String[0]));
                     MRAChartPanel fcp = new MRAChartPanel(chart, source, panel);
                     JDialog dialog = new JDialog(ConfigFetch.getSuperParentAsFrame());
                     dialog.setTitle("[MRA] " + chart.getName());

@@ -60,10 +60,6 @@ public class IridiumVisualization extends SimpleMRAVisualization {
 
     IridiumMessagesTableModel tableModel = new IridiumMessagesTableModel();
     
-    public IridiumVisualization(MRAPanel panel) {
-        super(panel);
-    }
-    
     /**
      * 
      */
@@ -133,6 +129,11 @@ public class IridiumVisualization extends SimpleMRAVisualization {
             }
         });
         return new JScrollPane(table);
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
     }
     
 }

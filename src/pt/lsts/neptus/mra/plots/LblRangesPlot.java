@@ -47,7 +47,6 @@ import pt.lsts.imc.LblBeacon;
 import pt.lsts.imc.lsf.LsfIndex;
 import pt.lsts.imc.types.LblConfigAdapter;
 import pt.lsts.neptus.i18n.I18n;
-import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.plugins.PluginDescription;
 
 /**
@@ -55,14 +54,14 @@ import pt.lsts.neptus.plugins.PluginDescription;
  * 
  */
 @PluginDescription
-public class LblRangesPlot extends MRATimeSeriesPlot {
+public class LblRangesPlot extends MRATimeSeriesPlot{
 
     protected LinkedHashMap<Integer, Color> beaconColors = new LinkedHashMap<>();
     protected LinkedHashMap<Integer, Shape> beaconShapes = new LinkedHashMap<>();
     protected Vector<Color> acceptedColors = new Vector<>();
     protected Vector<Color> rejectedColors = new Vector<>();
     protected Vector<Shape> possibleShapes = new Vector<>();
-
+    
     {
         acceptedColors.add(Color.blue);
         acceptedColors.add(Color.green.darker());
@@ -91,10 +90,6 @@ public class LblRangesPlot extends MRATimeSeriesPlot {
         gp.closePath();
         possibleShapes.add(gp);
 
-    }
-
-    public LblRangesPlot(MRAPanel panel) {
-        super(panel);
     }
 
     @Override

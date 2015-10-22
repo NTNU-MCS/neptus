@@ -57,12 +57,12 @@ public class ReplayPlot extends MRATimeSeriesPlot implements TimelineChangeListe
     private long lastTimestamp;
     String[] fieldsToPlot;
     LinkedHashMap<String, IMraLog> parsers = new LinkedHashMap<String, IMraLog>();
-
+    
     /**
      * @param panel
      */
     public ReplayPlot(MRAPanel panel, String[] fieldsToPlot) {
-        super(panel);
+        super.mraPanel=panel;
         this.fieldsToPlot = fieldsToPlot;
     }
 

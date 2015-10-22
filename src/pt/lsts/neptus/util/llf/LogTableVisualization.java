@@ -260,4 +260,9 @@ public class LogTableVisualization implements MRAVisualization, LogMarkerListene
     public void goToMarker(LogMarker marker) {
 
     }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
+    }
 }

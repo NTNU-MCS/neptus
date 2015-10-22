@@ -48,13 +48,6 @@ import pt.lsts.neptus.types.coord.LocationType;
 @PluginDescription(active=false)
 public class EstimatedStatePlot extends MRA2DPlot implements LogMarkerListener {
 
-    /**
-     * @param panel
-     */
-    public EstimatedStatePlot(MRAPanel panel) {
-        super(panel);
-    }
-
     @Override
     public boolean canBeApplied(LsfIndex index) {
         return index.containsMessagesOfType("EstimatedState");
@@ -129,6 +122,11 @@ public class EstimatedStatePlot extends MRA2DPlot implements LogMarkerListener {
     @Override
     public void goToMarker(LogMarker marker) {
 
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 
 }

@@ -54,11 +54,6 @@ public class ActualPosition extends MRA2DPlot {
 
     private MRAPanel mraPanel;
 
-    public ActualPosition(MRAPanel panel) {
-        super(panel);
-        this.mraPanel = panel;
-    }
-
     @Override
     public void addLogMarker(LogMarker marker) {
         XYSeries markerSeries = getMarkerSeries();
@@ -155,5 +150,11 @@ public class ActualPosition extends MRA2DPlot {
             lastLoc = thisLoc;
             lastTime = es.getTimestamp();
         }
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.initVisualization(mraPanel);
+        this.mraPanel=panel;
     }
 }

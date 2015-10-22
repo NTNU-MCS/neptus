@@ -84,16 +84,13 @@ public class CTD3D extends JPanel implements MRAVisualization, PropertiesProvide
 
     private boolean isFirstRender = true;
 
-    /**
-     * 
-     */
-    public CTD3D(MRAPanel mraPanel) {
+    public CTD3D() {
         if (!Utils.hasTryedToLoadVtkLib) {
             Utils.loadVTKLibraries();
             // VTKMemoryManager.GC.SetAutoGarbageCollection(true);
         }
     }
-
+   
     @Override
     public String getName() {
         return I18n.text("CTD 3D");
@@ -235,5 +232,10 @@ public class CTD3D extends JPanel implements MRAVisualization, PropertiesProvide
      */
     public void setScalarBar(ScalarBar scalarBar) {
         this.scalarBar = scalarBar;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        
     }
 }

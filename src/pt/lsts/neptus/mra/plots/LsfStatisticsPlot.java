@@ -39,10 +39,6 @@ import pt.lsts.imc.lsf.LsfIndex;
  *
  */
 public class LsfStatisticsPlot extends PiePlot {
-
-    public LsfStatisticsPlot(MRAPanel panel) {
-        super(panel);
-    }
     
     @Override
     public boolean canBeApplied(LsfIndex index) {
@@ -54,6 +50,11 @@ public class LsfStatisticsPlot extends PiePlot {
         for (int i = 0; i < source.getNumberOfMessages(); i++) {
             addValue(source.entityNameOf(i), source.sizeOf(i));
         }
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 
 }

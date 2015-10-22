@@ -50,10 +50,6 @@ public class VehicleGanttPlot extends MRAGanttPlot {
         return I18n.text("Vehicle Timeline");
     }
 
-    public VehicleGanttPlot(MRAPanel panel) {
-        super(panel);
-    }
-
     @Override
     public boolean canBeApplied(LsfIndex index) {
         return true;
@@ -87,5 +83,10 @@ public class VehicleGanttPlot extends MRAGanttPlot {
             startActivity(medium.getTimestamp(), I18n.text("Vehicle Medium"), medium.getString("medium"));
 
         endActivity(source.getEndTime(), I18n.text("Vehicle Medium"));
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 }

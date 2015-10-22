@@ -52,6 +52,7 @@ import org.apache.commons.codec.binary.Hex;
 
 import pt.lsts.neptus.comm.iridium.IridiumMessage;
 import pt.lsts.neptus.i18n.I18n;
+import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.importers.IMraLogGroup;
 import pt.lsts.neptus.mra.visualizations.MRAVisualization;
 import pt.lsts.neptus.util.ImageUtils;
@@ -149,6 +150,11 @@ public class IridiumHtmlVisualization implements MRAVisualization {
     @Override
     public boolean canBeApplied(IMraLogGroup source) {
         return true;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+
     }
 
 }

@@ -99,15 +99,7 @@ public class MRALogReplay extends SimpleMRAVisualization implements LogMarkerLis
     private MRALogReplayTimeline timeline;
     private final LinkedHashMap<String, Vector<LogReplayComponent>> observers = new LinkedHashMap<>();
     private final LinkedHashMap<LogReplayPanel, JDialog> popups = new LinkedHashMap<>();
-    private final MRAPanel panel;
-    
-
-    public MRALogReplay(MRAPanel panel) {
-        super(panel);
-        this.panel = panel;
-    }
-    
-    
+    private MRAPanel panel;  
    
     @Override
     public void onShow() {
@@ -463,6 +455,11 @@ public class MRALogReplay extends SimpleMRAVisualization implements LogMarkerLis
      */
     public EventBus getReplayBus() {
         return replayBus;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel; 
     }
 
 }

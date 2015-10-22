@@ -101,17 +101,6 @@ public class VtkMRAVis extends JPanel implements MRAVisualization, PropertiesPro
     private static final String FILE_83P_EXT = ".83P";
 
     private MRAPanel mraPanel = null;
-    
-    /**
-     * @param panel
-     */
-    public VtkMRAVis(MRAPanel panel) {
-        this.mraPanel = panel;
-        if (!Utils.hasTryedToLoadVtkLib) {
-            Utils.loadVTKLibraries();
-            // VTKMemoryManager.GC.SetAutoGarbageCollection(true);
-        }
-    }
 
     @Override
     public String getName() {
@@ -441,5 +430,14 @@ public class VtkMRAVis extends JPanel implements MRAVisualization, PropertiesPro
      */
     private void setEvents(EventsHandler events) {
         this.events = events;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
+        if (!Utils.hasTryedToLoadVtkLib) {
+            Utils.loadVTKLibraries();
+            // VTKMemoryManager.GC.SetAutoGarbageCollection(true);
+        }
     }
 }

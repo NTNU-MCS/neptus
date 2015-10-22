@@ -39,7 +39,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import pt.lsts.imc.lsf.LsfIndex;
-import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.importers.IMraLogGroup;
 import pt.lsts.neptus.plugins.PluginDescription;
 import pt.lsts.neptus.util.llf.MessageHtmlVisualization;
@@ -54,10 +53,6 @@ public class MraRawMessages extends SimpleMRAVisualization {
 
     private static final long serialVersionUID = 1L;
     private JTable table;
-
-    public MraRawMessages(MRAPanel panel) {
-        super(panel);
-    }
 
     @Override
     public Type getType() {
@@ -89,5 +84,4 @@ public class MraRawMessages extends SimpleMRAVisualization {
         });
         return new JScrollPane(table);
     }
-
 }

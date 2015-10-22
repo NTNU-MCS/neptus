@@ -129,12 +129,6 @@ public class BathymetryPlotter extends SimpleMRAVisualization {
     private DataPoint[] dps;
     private Rectangle2D.Double bounds;
 
-    /**
-     * @param panel
-     */
-    public BathymetryPlotter(MRAPanel panel) {
-        super(panel);
-    }
 
     @Override
     public Double getDefaultTimeStep() {
@@ -741,5 +735,10 @@ public class BathymetryPlotter extends SimpleMRAVisualization {
     @Override
     public Type getType() {
         return Type.VISUALIZATION;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
     }
 }

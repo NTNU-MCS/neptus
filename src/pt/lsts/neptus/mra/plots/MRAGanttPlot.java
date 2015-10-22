@@ -81,12 +81,6 @@ public abstract class MRAGanttPlot implements LLFChart, LogMarkerListener {
     protected static final long localTimeOffset = Calendar.getInstance().get(Calendar.DST_OFFSET)
             + Calendar.getInstance().get(Calendar.ZONE_OFFSET);
 
-    /**
-     * 
-     */
-    public MRAGanttPlot(MRAPanel panel) {
-        this.mraPanel = panel;
-    }
 
     public Vector<String> getForbiddenSeries() {
         return forbiddenSeries;
@@ -270,6 +264,11 @@ public abstract class MRAGanttPlot implements LLFChart, LogMarkerListener {
     @Override
     public void goToMarker(LogMarker marker) {
 
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
     }
 
 }

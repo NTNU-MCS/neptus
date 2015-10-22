@@ -42,11 +42,7 @@ import pt.lsts.neptus.plugins.PluginDescription;
  * 
  */
 @PluginDescription
-public class EulerAnglesPlot extends MRACombinedPlot {
-
-    public EulerAnglesPlot(MRAPanel panel) {
-        super(panel);
-    }
+public class EulerAnglesPlot extends MRACombinedPlot{
 
     @Override
     public String getName() {
@@ -80,5 +76,10 @@ public class EulerAnglesPlot extends MRACombinedPlot {
                         Math.toDegrees(msg.getDouble("yaw")));
             }
         }
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
     }
 }

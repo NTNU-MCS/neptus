@@ -201,10 +201,6 @@ public class FilterMra extends JPanel implements MRAVisualization, TimelineChang
 
     C3DListElement id_actor_list;
 
-    public FilterMra(MRAPanel panel) {
-        this.mraPanel = panel;
-    }
-
     public void CreateTimeline() {
         estimated_state = new CEstimatedState();
         estimated_state.parser = source.getLog("EstimatedState");
@@ -1187,6 +1183,11 @@ public class FilterMra extends JPanel implements MRAVisualization, TimelineChang
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
     }
 
 }

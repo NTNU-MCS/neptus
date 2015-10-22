@@ -103,9 +103,10 @@ public class SidescanHistogram extends SimpleMRAVisualization {
         t.start();
         return this;
     }
-    
-    public SidescanHistogram(MRAPanel panel) {
-        super(panel);
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
     }
     
 }

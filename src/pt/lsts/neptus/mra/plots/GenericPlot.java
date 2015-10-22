@@ -48,9 +48,9 @@ import pt.lsts.neptus.util.ImageUtils;
 public class GenericPlot extends MRATimeSeriesPlot {
 
     protected String[] fieldsToPlot = null;
-
-    public GenericPlot(String[] fieldsToPlot, MRAPanel panel) {
-        super(panel);
+    
+    public GenericPlot(MRAPanel panel, String[] fieldsToPlot) {
+        super.mraPanel=panel;
         this.fieldsToPlot = fieldsToPlot;
     }
 
@@ -112,4 +112,5 @@ public class GenericPlot extends MRATimeSeriesPlot {
             }
         }
     }
+
 }

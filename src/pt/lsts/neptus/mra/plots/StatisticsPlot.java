@@ -59,10 +59,6 @@ public class StatisticsPlot extends JPanel implements MRAVisualization {
 
     JTable table;
     TableModel model = new TableModel();
-        
-    public StatisticsPlot(MRAPanel panel) {
-        setLayout(new MigLayout());
-    }
     
     @Override
     public String getName() {
@@ -152,5 +148,10 @@ public class StatisticsPlot extends JPanel implements MRAVisualization {
         public int getColumnCount() {
             return 2;
         }
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        setLayout(new MigLayout());
     };
 }

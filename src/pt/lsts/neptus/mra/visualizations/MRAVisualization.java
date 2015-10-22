@@ -35,6 +35,7 @@ import java.awt.Component;
 
 import javax.swing.ImageIcon;
 
+import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.importers.IMraLogGroup;
 
 /**
@@ -56,4 +57,5 @@ public interface MRAVisualization {
 	public void onHide();
 	public void onShow();
 	public void onCleanup();
+	public void initVisualization(final MRAPanel panel);
 }

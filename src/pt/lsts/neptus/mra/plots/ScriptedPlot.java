@@ -69,8 +69,12 @@ public class ScriptedPlot extends MRATimeSeriesPlot {
     protected LsfIndex index;
     protected String title = getClass().getName();
     protected ScriptEnvironment env = new ScriptEnvironment();
-
-
+    
+    public ScriptedPlot(MRAPanel panel, String scriptFile) {
+        super.mraPanel=panel;
+        loadScriptFile(scriptFile);
+    }
+    
     @Override
     public String getName() {
         return I18n.text(title);
@@ -79,46 +83,6 @@ public class ScriptedPlot extends MRATimeSeriesPlot {
     @Override
     public String getTitle() {
         return I18n.textf("%plotname plot", title);
-    }
-    public ScriptedPlot(MRAPanel panel, String scriptFile) {
-        super(panel);
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(scriptFile));
-            title = reader.readLine();
-            String line;
-            while((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty() || line.trim().startsWith("#"))
-                    continue;
-
-                while (line.endsWith("\\")) {
-                    line = line.substring(0, line.length()-1) + reader.readLine();
-                }
-
-                String parts[] = line.trim().split(":");
-
-                String script = parts[1];
-
-                script = script.replaceAll("\\$\\{([^\\}]*)\\}", "log.val(\"$1\")");
-                script = script.replaceAll("mark\\(([^\\)]+)\\)", "log.mark($1)");
-                script = script.replaceAll("\\$time", "log.time()");
-                script = script.replaceAll("\\$(\\w+)", "env[\"$1\"]");
-
-                if (parts[0].isEmpty())
-                    hiddenTraces.put(parts[1], script);
-                else if (parts[0].equals("init"))
-                    init = script;
-                else if (parts[0].equals("end"))
-                    end = script;
-                else
-                    traces.put(parts[0], script);                
-            }
-
-            reader.close();
-        }
-        catch (Exception e) {
-            GuiUtils.errorMessage(panel, e);
-        }       
     }
 
     protected void init() {
@@ -176,6 +140,46 @@ public class ScriptedPlot extends MRATimeSeriesPlot {
                 e.printStackTrace();
             }
         }
+    }
+    
+    public void loadScriptFile(String scriptFile){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(scriptFile));
+            title = reader.readLine();
+            String line;
+            while((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty() || line.trim().startsWith("#"))
+                    continue;
+
+                while (line.endsWith("\\")) {
+                    line = line.substring(0, line.length()-1) + reader.readLine();
+                }
+
+                String parts[] = line.trim().split(":");
+
+                String script = parts[1];
+
+                script = script.replaceAll("\\$\\{([^\\}]*)\\}", "log.val(\"$1\")");
+                script = script.replaceAll("mark\\(([^\\)]+)\\)", "log.mark($1)");
+                script = script.replaceAll("\\$time", "log.time()");
+                script = script.replaceAll("\\$(\\w+)", "env[\"$1\"]");
+
+                if (parts[0].isEmpty())
+                    hiddenTraces.put(parts[1], script);
+                else if (parts[0].equals("init"))
+                    init = script;
+                else if (parts[0].equals("end"))
+                    end = script;
+                else
+                    traces.put(parts[0], script);                
+            }
+
+            reader.close();
+        }
+        catch (Exception e) {
+            NeptusLog.pub().error(e);
+            //GuiUtils.errorMessage(panel, e);
+        }       
     }
 
     @Override

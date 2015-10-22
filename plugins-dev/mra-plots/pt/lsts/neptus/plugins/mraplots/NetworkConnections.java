@@ -55,13 +55,6 @@ import pt.lsts.neptus.plugins.PluginDescription;
 @PluginDescription(name = "Network", icon="pt/lsts/neptus/plugins/mraplots/msg_inspector.png", experimental=true)
 public class NetworkConnections extends SimpleMRAVisualization {
 
-    /**
-     * @param panel
-     */
-    public NetworkConnections(MRAPanel panel) {
-        super(panel);
-    }
-
     private static final long serialVersionUID = -8135678083471983681L;
     protected LsfIndex index;
     protected JLabel label = new JLabel();
@@ -100,5 +93,10 @@ public class NetworkConnections extends SimpleMRAVisualization {
     
     public Type getType() {
         return Type.VISUALIZATION;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
     }
 }

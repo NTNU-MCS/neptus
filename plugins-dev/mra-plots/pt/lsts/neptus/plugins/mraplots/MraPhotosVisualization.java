@@ -128,56 +128,6 @@ public class MraPhotosVisualization extends JComponent implements MRAVisualizati
     long endTime;
     Timeline timeline;
 
-    public MraPhotosVisualization(MRAPanel panel) {
-        this.panel = panel;
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (e.getButton() == MouseEvent.BUTTON3)
-                    showPopup(curFile, e);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if (e.getButton() == MouseEvent.BUTTON3)
-                    return;
-
-                if (imageToDisplay == null)
-                    return;
-                zoomPoint = e.getPoint();
-                repaint();
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                if (e.getButton() == MouseEvent.BUTTON3)
-                    return;
-
-                zoomPoint = null;
-                repaint();
-            }
-        });
-
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                if (e.getButton() == MouseEvent.BUTTON3)
-                    return;
-
-                if (imageToDisplay == null)
-                    return;
-
-                zoomPoint = e.getPoint();
-                repaint();
-            }
-        });
-    }
-
     @Override
     public Component getComponent(IMraLogGroup source, double timestep) {
         this.photosDir = source.getFile("Photos");
@@ -661,5 +611,56 @@ public class MraPhotosVisualization extends JComponent implements MRAVisualizati
                 return;
             }
         }
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
+        
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getButton() == MouseEvent.BUTTON3)
+                    showPopup(curFile, e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if (e.getButton() == MouseEvent.BUTTON3)
+                    return;
+
+                if (imageToDisplay == null)
+                    return;
+                zoomPoint = e.getPoint();
+                repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if (e.getButton() == MouseEvent.BUTTON3)
+                    return;
+
+                zoomPoint = null;
+                repaint();
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                if (e.getButton() == MouseEvent.BUTTON3)
+                    return;
+
+                if (imageToDisplay == null)
+                    return;
+
+                zoomPoint = e.getPoint();
+                repaint();
+            }
+        });
     }
 }

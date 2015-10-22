@@ -86,12 +86,6 @@ public class Plot3D extends SimpleMRAVisualization implements LogMarkerListener 
     protected LocationType ref;
     protected Vector<Marker3d> markers = new Vector<>();
 
-    public Plot3D(MRAPanel panel) {
-        super(panel);
-        this.panel = panel;
-        setLayout(new BorderLayout());
-    }
-
     @Override
     public Type getType() {
         return Type.VISUALIZATION;
@@ -389,5 +383,10 @@ public class Plot3D extends SimpleMRAVisualization implements LogMarkerListener 
         }
     }
 
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.panel=panel;
+        setLayout(new BorderLayout());
+    }
 
 }

@@ -205,10 +205,8 @@ public class MRAPanel extends JPanel {
                 if (!mra.getMraProperties().isVisualizationActive(vis))
                     continue;
 
-                MRAVisualization visualization = (MRAVisualization) vis.getDeclaredConstructor(MRAPanel.class)
-                        .newInstance(this);
+                MRAVisualization visualization = (MRAVisualization) vis.newInstance();
                 PluginUtils.loadProperties(visualization, "mra");
-
                 if (visualization.canBeApplied(MRAPanel.this.source)) {
                     visualizations.add(visualization);
                 }
@@ -219,12 +217,12 @@ public class MRAPanel extends JPanel {
             }
             catch (Exception e1) {
                 NeptusLog.pub().error(
-                        I18n.text("MRA Visualization not loading properly") + ": " + visName + "  [" + e1.getMessage()
+                        I18n.text("MRA Visualization not loading properly (e1)") + ": " + visName + "  [" + e1.getMessage()
                         + "]");
             }
             catch (Error e2) {
                 NeptusLog.pub().error(
-                        I18n.text("MRA Visualization not loading properly") + ": " + visName + "  [" + e2.getMessage()
+                        I18n.text("MRA Visualization not loading properly (e2)") + ": " + visName + "  [" + e2.getMessage()
                         + "]");
             }
         }
@@ -245,12 +243,12 @@ public class MRAPanel extends JPanel {
             }
             catch (Exception e1) {
                 NeptusLog.pub().error(
-                        I18n.text("MRA Visualization not loading properly") + ": " + viz.getName() + "  ["
+                        I18n.text("MRA Visualization not loading properly (e1) ") + ": " + viz.getName() + "  ["
                                 + e1.getMessage() + "]");
             }
             catch (Error e2) {
                 NeptusLog.pub().error(
-                        I18n.text("MRA Visualization not loading properly") + ": " + viz.getName() + "  ["
+                        I18n.text("MRA Visualization not loading properly (e2) ") + ": " + viz.getName() + "  ["
                                 + e2.getMessage() + "]");
             }
         }
@@ -511,6 +509,7 @@ public class MRAPanel extends JPanel {
 
         public LoadTask(MRAVisualization vis) {
             this.vis = vis;
+            //NeptusLog.pub().info("this is MRAVisualization(sys): "+vis.toString());
         }
 
         @Override

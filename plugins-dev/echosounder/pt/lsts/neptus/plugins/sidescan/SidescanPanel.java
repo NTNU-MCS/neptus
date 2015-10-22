@@ -32,6 +32,7 @@
 package pt.lsts.neptus.plugins.sidescan;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -54,6 +55,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -65,12 +67,15 @@ import pt.lsts.neptus.NeptusLog;
 import pt.lsts.neptus.console.plugins.PropertiesProviders.SidescanConfig;
 import pt.lsts.neptus.i18n.I18n;
 import pt.lsts.neptus.mra.LogMarker;
+import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.SidescanLogMarker;
 import pt.lsts.neptus.mra.api.SidescanLine;
 import pt.lsts.neptus.mra.api.SidescanParameters;
 import pt.lsts.neptus.mra.api.SidescanParser;
 import pt.lsts.neptus.mra.api.SidescanPoint;
+import pt.lsts.neptus.mra.importers.IMraLogGroup;
 import pt.lsts.neptus.mra.replay.MraVehiclePosHud;
+import pt.lsts.neptus.mra.visualizations.MRAVisualization;
 import pt.lsts.neptus.types.coord.CoordinateUtil;
 import pt.lsts.neptus.types.coord.LocationType;
 import pt.lsts.neptus.util.GuiUtils;
@@ -86,7 +91,7 @@ import pt.lsts.neptus.util.llf.LsfReportProperties;
  * @author Manuel Ribeiro (new zoom)
  * @author pdias
  */
-public class SidescanPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class SidescanPanel extends JPanel implements MRAVisualization, MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
 
     private static final int ZOOM_BOX_SIZE = 100;
@@ -100,6 +105,8 @@ public class SidescanPanel extends JPanel implements MouseListener, MouseMotionL
     private boolean isShowingZoomedImage = false;
     private long lastMouseMoveTS = 0;
     private ExecutorService threadExecutor = Executors.newCachedThreadPool();
+    
+    protected MRAPanel mraPanel;
 
     private SidescanAnalyzer parent;
     SidescanConfig config = new SidescanConfig();
@@ -164,6 +171,7 @@ public class SidescanPanel extends JPanel implements MouseListener, MouseMotionL
 
                     if (record) {
                         creator.addFrame(image, firstPingTime + currentTime);
+                        NeptusLog.pub().info("addFrame");
                     }
                 }
             }
@@ -262,9 +270,10 @@ public class SidescanPanel extends JPanel implements MouseListener, MouseMotionL
                 layer = ImageUtils.createCompatibleImage(view.getWidth(), view.getHeight(), Transparency.TRANSLUCENT);
                 clearLines();
                 lines.clear();
+                NeptusLog.pub().info("componentResized - Width: "+view.getWidth()+" Height: "+view.getHeight());
             }
         });
-
+        NeptusLog.pub().info("initialize");
         // Create SlantRangeFilter
         // filter = new SlantRangeImageFilter(0, pingParser.firstLogEntry().getDouble("max_range"),
         // pingParser.firstLogEntry().getRawData("data").length);
@@ -347,12 +356,13 @@ public class SidescanPanel extends JPanel implements MouseListener, MouseMotionL
             yref += l.ysize;
 
         }
-
+        NeptusLog.pub().info("updateImage");
         // This check is to prevent negative array indexes (from dragging too much)
         if (yref <= image.getHeight()) {
             ImageUtils.copySrcIntoDst(image, bufferedCache, 0, 0, image.getWidth(), image.getHeight() - yref, 0, 0,
                     image.getWidth(), image.getHeight());
             g2d.drawImage(bufferedCache, 0, yref, null);
+            NeptusLog.pub().info("drawImage bufferedCache - yref: "+yref);
         }
         else {
             yref = image.getHeight() - 1;
@@ -400,7 +410,7 @@ public class SidescanPanel extends JPanel implements MouseListener, MouseMotionL
         public void run() {
             synchronized (lines) {
                 lines.clear();
-
+                NeptusLog.pub().info("updateLines");
                 for (SidescanLine line : lineList) {
                     if (isBetweenTopAndBottom(line,bottomZoomTimestamp, topZoomTimestamp)) {
                         lines.add(line);
@@ -1008,6 +1018,96 @@ public class SidescanPanel extends JPanel implements MouseListener, MouseMotionL
     public void mouseExited(MouseEvent e) {  
         mouseX = mouseY = -1;
         repaint();
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getComponent(pt.lsts.neptus.mra.importers.IMraLogGroup, double)
+     */
+    @Override
+    public Component getComponent(IMraLogGroup source, double timestep) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#canBeApplied(pt.lsts.neptus.mra.importers.IMraLogGroup)
+     */
+    @Override
+    public boolean canBeApplied(IMraLogGroup source) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getIcon()
+     */
+    @Override
+    public ImageIcon getIcon() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getDefaultTimeStep()
+     */
+    @Override
+    public Double getDefaultTimeStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#supportsVariableTimeSteps()
+     */
+    @Override
+    public boolean supportsVariableTimeSteps() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getType()
+     */
+    @Override
+    public Type getType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#onHide()
+     */
+    @Override
+    public void onHide() {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    /* (non-Javadoc)
+     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#onShow()
+     */
+    @Override
+    public void onShow() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void onCleanup() {
+        mraPanel = null;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.mraPanel=panel;
     }
 
 }

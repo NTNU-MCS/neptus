@@ -50,6 +50,7 @@ import javax.swing.JScrollPane;
 import pt.lsts.imc.IMCMessage;
 import pt.lsts.imc.IMCUtil;
 import pt.lsts.neptus.i18n.I18n;
+import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.importers.IMraLogGroup;
 import pt.lsts.neptus.mra.visualizations.MRAVisualization;
 import pt.lsts.neptus.util.ImageUtils;
@@ -144,6 +145,11 @@ public class MessageHtmlVisualization implements MRAVisualization {
     @Override
     public int hashCode() {
         return new String(message.getSrc() + "." + message.getSrcEnt() + "." + message.getTimestampMillis()).hashCode();
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+
     }
 
 }

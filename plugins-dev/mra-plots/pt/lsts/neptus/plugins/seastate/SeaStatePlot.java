@@ -35,7 +35,6 @@ import pt.lsts.imc.EstimatedState;
 import pt.lsts.imc.GpsFix;
 import pt.lsts.imc.lsf.LsfIndex;
 import pt.lsts.imc.lsf.LsfIterator;
-import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.plots.MRATimeSeriesPlot;
 
 /**
@@ -43,10 +42,6 @@ import pt.lsts.neptus.mra.plots.MRATimeSeriesPlot;
  *
  */
 public class SeaStatePlot extends MRATimeSeriesPlot {
-
-    public SeaStatePlot(MRAPanel panel) {
-        super(panel);
-    }
 
     @Override
     public boolean canBeApplied(LsfIndex index) {

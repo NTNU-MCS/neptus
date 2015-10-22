@@ -36,7 +36,6 @@ import pt.lsts.imc.GpsFix;
 import pt.lsts.imc.IMCMessage;
 import pt.lsts.imc.lsf.LsfIndex;
 import pt.lsts.neptus.i18n.I18n;
-import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.plugins.PluginDescription;
 import pt.lsts.neptus.util.bathymetry.TidePredictionFactory;
 import pt.lsts.neptus.util.bathymetry.TidePredictionFinder;
@@ -46,11 +45,7 @@ import pt.lsts.neptus.util.bathymetry.TidePredictionFinder;
  * 
  */
 @PluginDescription
-public class ZPlot extends MRATimeSeriesPlot {
-
-    public ZPlot(MRAPanel panel) {
-        super(panel);
-    }
+public class ZPlot extends MRATimeSeriesPlot{
 
     @Override
     public String getTitle() {

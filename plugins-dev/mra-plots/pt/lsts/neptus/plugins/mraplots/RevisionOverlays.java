@@ -129,7 +129,7 @@ public class RevisionOverlays extends SimpleRendererInteraction {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JDialog dialog = new JDialog(getConsole());
-                    final Plot3D plot = new Plot3D(null);
+                    final Plot3D plot = new Plot3D();
                     dialog.getContentPane().add(plot.getComponent(sidePanel.getLogSource(), 1.0));
                     dialog.addWindowListener(new WindowAdapter() {
                         @Override

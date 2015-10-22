@@ -75,7 +75,7 @@ import java.util.Vector;
 public class Viewer extends JComponent implements MRAVisualization, LogMarkerListener {
     private static final long serialVersionUID = 1L;
     /** Parent MRA panel. */
-    private final MRAPanel panel;
+    private MRAPanel panel;
     /** Log folder. */
     private File logFolder;
     /** LSF index. */
@@ -100,41 +100,6 @@ public class Viewer extends JComponent implements MRAVisualization, LogMarkerLis
     private VideoFrame videoFrame = null;
     /** Timeline bar. */
     private Timeline timeline;
-
-    public Viewer(MRAPanel panel) {
-        this.panel = panel;
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if (e.getButton() == MouseEvent.BUTTON3 && videoFrame != null) {
-                    zoomPoint = e.getPoint();
-                    repaint();
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                if (e.getButton() != MouseEvent.BUTTON3) {
-                    zoomPoint = null;
-                    repaint();
-                }
-            }
-        });
-
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                if (e.getButton() != MouseEvent.BUTTON3 && videoFrame != null) {
-                    zoomPoint = e.getPoint();
-                    repaint();
-                }
-            }
-        });
-    }
 
     @Override
     public Component getComponent(IMraLogGroup source, double timeStep) {
@@ -491,5 +456,40 @@ public class Viewer extends JComponent implements MRAVisualization, LogMarkerLis
         videoFrame = decoder.getCurrentFrame();
         timeline.setTime(videoFrame.getTimeStamp());
         repaint();
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if (e.getButton() == MouseEvent.BUTTON3 && videoFrame != null) {
+                    zoomPoint = e.getPoint();
+                    repaint();
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if (e.getButton() != MouseEvent.BUTTON3) {
+                    zoomPoint = null;
+                    repaint();
+                }
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                if (e.getButton() != MouseEvent.BUTTON3 && videoFrame != null) {
+                    zoomPoint = e.getPoint();
+                    repaint();
+                }
+            }
+        });
     }
 }

@@ -59,13 +59,6 @@ import pt.lsts.neptus.types.coord.LocationType;
 @PluginDescription(name="CSV Data", author="ZP", icon="pt/lsts/neptus/plugins/odss/fileshare.png", active=false)
 public class MraCsvExporter extends SimpleMRAVisualization {
 
-    /**
-     * @param panel
-     */
-    public MraCsvExporter(MRAPanel panel) {
-        super(panel);
-    }
-
     private static final long serialVersionUID = 1L;
     protected JEditorPane csvEditor = new JEditorPane();
     protected Thread loadingThread = null;
@@ -172,5 +165,10 @@ public class MraCsvExporter extends SimpleMRAVisualization {
     @Override
     public Type getType() {
         return Type.VISUALIZATION;
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        this.panel=panel;
     }
 }

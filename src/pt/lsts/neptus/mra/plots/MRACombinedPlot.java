@@ -42,8 +42,6 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 import pt.lsts.neptus.i18n.I18n;
 import pt.lsts.neptus.mra.LogMarker;
-import pt.lsts.neptus.mra.MRAPanel;
-
 /**
  * @author zp
  *
@@ -51,11 +49,7 @@ import pt.lsts.neptus.mra.MRAPanel;
 public abstract class MRACombinedPlot extends MRATimeSeriesPlot {
 
     CombinedDomainXYPlot combinedPlot;
-
-    public MRACombinedPlot(MRAPanel panel) {
-        super(panel);
-    }
-
+    
     @Override
     public JFreeChart createChart() {
 

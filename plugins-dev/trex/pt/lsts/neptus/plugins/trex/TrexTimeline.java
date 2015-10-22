@@ -46,9 +46,6 @@ import pt.lsts.neptus.plugins.PluginDescription;
 @PluginDescription(name="TREX Timeline", active=false)
 public class TrexTimeline extends MRAGanttPlot {
 
-    public TrexTimeline(MRAPanel panel) {
-        super(panel);
-    }
     @Override
     public boolean canBeApplied(LsfIndex index) {
         return index.containsMessagesOfType("TrexToken");
@@ -65,6 +62,11 @@ public class TrexTimeline extends MRAGanttPlot {
 
         for (String s : timelines)
             endActivity(source.getEndTime(), s);
+    }
+
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 
 }
