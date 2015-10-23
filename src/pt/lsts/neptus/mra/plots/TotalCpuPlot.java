@@ -36,6 +36,7 @@ import javax.swing.ImageIcon;
 import pt.lsts.imc.CpuUsage;
 import pt.lsts.imc.lsf.LsfIndex;
 import pt.lsts.imc.lsf.LsfIterator;
+import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.plugins.PluginDescription;
 import pt.lsts.neptus.util.ImageUtils;
 
@@ -66,5 +67,9 @@ public class TotalCpuPlot extends MRATimeSeriesPlot {
                 continue;
             addValue(u.getTimestampMillis(), u.getSourceName()+".cpu", u.getValue());
         }
+    }
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 }

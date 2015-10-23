@@ -70,10 +70,11 @@ public class ScriptedPlot extends MRATimeSeriesPlot {
     protected String title = getClass().getName();
     protected ScriptEnvironment env = new ScriptEnvironment();
     
-    public ScriptedPlot(MRAPanel panel, String scriptFile) {
-        super.mraPanel=panel;
+    /*public ScriptedPlot(String scriptFile) {
+        
+        //super.mraPanel=panel;
         loadScriptFile(scriptFile);
-    }
+    }*/
     
     @Override
     public String getName() {
@@ -83,6 +84,11 @@ public class ScriptedPlot extends MRATimeSeriesPlot {
     @Override
     public String getTitle() {
         return I18n.textf("%plotname plot", title);
+    }
+    
+    @Override
+    public void initVisualization(MRAPanel panel) {
+        super.mraPanel=panel;
     }
 
     protected void init() {

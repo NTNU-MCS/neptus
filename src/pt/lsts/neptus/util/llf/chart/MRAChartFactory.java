@@ -34,6 +34,7 @@ package pt.lsts.neptus.util.llf.chart;
 import java.io.File;
 import java.util.Vector;
 
+import pt.lsts.neptus.NeptusLog;
 import pt.lsts.neptus.mra.MRAPanel;
 import pt.lsts.neptus.mra.plots.ScriptedPlot;
 import pt.lsts.neptus.mra.visualizations.MRAVisualization;
@@ -80,7 +81,6 @@ public class MRAChartFactory {
 
     public static Vector<ScriptedPlot> getScriptedPlots(MRAPanel panel) {
         Vector<ScriptedPlot> plots = new Vector<ScriptedPlot>();
-
         File sFx = new File("conf/mraplots");
         File[] scripts = sFx.exists() ? sFx.listFiles() : null;
         if (scripts == null || scripts.length == 0)
@@ -89,7 +89,12 @@ public class MRAChartFactory {
         for (File f : scripts) {
             if (f.isDirectory() || !f.canRead())
                 continue;
-            ScriptedPlot plot = new ScriptedPlot(panel, f.getAbsolutePath());
+            ScriptedPlot plot = new ScriptedPlot();
+            NeptusLog.pub().info("ScriptedPlot plot: "+plot.toString());
+            plot.loadScriptFile(f.getAbsolutePath());
+            NeptusLog.pub().info("loadScriptFile: "+f.getAbsolutePath());
+            plot.initVisualization(panel);
+            NeptusLog.pub().info("initVisualization: "+panel);
             plots.add(plot);
         }
 

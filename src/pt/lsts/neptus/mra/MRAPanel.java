@@ -206,6 +206,7 @@ public class MRAPanel extends JPanel {
                     continue;
 
                 MRAVisualization visualization = (MRAVisualization) vis.newInstance();
+                visualization.initVisualization(this);
                 PluginUtils.loadProperties(visualization, "mra");
                 if (visualization.canBeApplied(MRAPanel.this.source)) {
                     visualizations.add(visualization);
@@ -509,7 +510,7 @@ public class MRAPanel extends JPanel {
 
         public LoadTask(MRAVisualization vis) {
             this.vis = vis;
-            //NeptusLog.pub().info("this is MRAVisualization(sys): "+vis.toString());
+            NeptusLog.pub().info("this is MRAVisualization(sys): "+vis.toString());
         }
 
         @Override
