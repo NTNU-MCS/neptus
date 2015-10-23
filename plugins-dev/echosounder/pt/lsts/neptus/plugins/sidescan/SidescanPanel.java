@@ -32,7 +32,6 @@
 package pt.lsts.neptus.plugins.sidescan;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -55,7 +54,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -73,9 +71,7 @@ import pt.lsts.neptus.mra.api.SidescanLine;
 import pt.lsts.neptus.mra.api.SidescanParameters;
 import pt.lsts.neptus.mra.api.SidescanParser;
 import pt.lsts.neptus.mra.api.SidescanPoint;
-import pt.lsts.neptus.mra.importers.IMraLogGroup;
 import pt.lsts.neptus.mra.replay.MraVehiclePosHud;
-import pt.lsts.neptus.mra.visualizations.MRAVisualization;
 import pt.lsts.neptus.types.coord.CoordinateUtil;
 import pt.lsts.neptus.types.coord.LocationType;
 import pt.lsts.neptus.util.GuiUtils;
@@ -91,7 +87,7 @@ import pt.lsts.neptus.util.llf.LsfReportProperties;
  * @author Manuel Ribeiro (new zoom)
  * @author pdias
  */
-public class SidescanPanel extends JPanel implements MRAVisualization, MouseListener, MouseMotionListener {
+public class SidescanPanel extends JPanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
 
     private static final int ZOOM_BOX_SIZE = 100;
@@ -1019,95 +1015,4 @@ public class SidescanPanel extends JPanel implements MRAVisualization, MouseList
         mouseX = mouseY = -1;
         repaint();
     }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getComponent(pt.lsts.neptus.mra.importers.IMraLogGroup, double)
-     */
-    @Override
-    public Component getComponent(IMraLogGroup source, double timestep) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#canBeApplied(pt.lsts.neptus.mra.importers.IMraLogGroup)
-     */
-    @Override
-    public boolean canBeApplied(IMraLogGroup source) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getIcon()
-     */
-    @Override
-    public ImageIcon getIcon() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getDefaultTimeStep()
-     */
-    @Override
-    public Double getDefaultTimeStep() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#supportsVariableTimeSteps()
-     */
-    @Override
-    public boolean supportsVariableTimeSteps() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#getType()
-     */
-    @Override
-    public Type getType() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#onHide()
-     */
-    @Override
-    public void onHide() {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    /* (non-Javadoc)
-     * @see pt.lsts.neptus.mra.visualizations.MRAVisualization#onShow()
-     */
-    @Override
-    public void onShow() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void onCleanup() {
-        mraPanel = null;
-    }
-
-    @Override
-    public void initVisualization(MRAPanel panel) {
-        this.mraPanel=panel;
-    }
-
 }
