@@ -151,10 +151,4 @@ public class ActualPosition extends MRA2DPlot {
             lastTime = es.getTimestamp();
         }
     }
-
-    @Override
-    public void initVisualization(MRAPanel panel) {
-        super.initVisualization(mraPanel);
-        this.mraPanel=panel;
-    }
 }

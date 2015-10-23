@@ -240,7 +240,6 @@ public abstract class PiePlot implements LLFChart, LogMarkerListener {
     
     @Override
     public void initVisualization(MRAPanel panel) {
-        NeptusLog.pub().info("HELLO FROM PiePlot:initVisualization");
         this.mraPanel=panel;
     }
 }

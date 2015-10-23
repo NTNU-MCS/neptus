@@ -225,7 +225,6 @@ public abstract class MRA2DPlot implements LLFChart, LogMarkerListener {
     }
     @Override
     public void initVisualization(MRAPanel panel) {
-        NeptusLog.pub().info("HELLO FROM MRA2DPlot:initVisualization");
         this.mraPanel=panel;
     }
 
