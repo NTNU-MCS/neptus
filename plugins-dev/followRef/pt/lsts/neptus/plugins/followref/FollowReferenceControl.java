@@ -61,12 +61,14 @@ import pt.lsts.neptus.console.events.ConsoleEventMainSystemChange;
 import pt.lsts.neptus.gui.PropertiesEditor;
 import pt.lsts.neptus.plugins.NeptusProperty;
 import pt.lsts.neptus.plugins.PluginDescription;
+import pt.lsts.neptus.plugins.PluginUtils;
 import pt.lsts.neptus.plugins.SimpleRendererInteraction;
 import pt.lsts.neptus.plugins.update.IPeriodicUpdates;
 import pt.lsts.neptus.renderer2d.StateRenderer2D;
 import pt.lsts.neptus.types.coord.LocationType;
 
 import com.google.common.eventbus.Subscribe;
+import com.l2fprod.common.propertysheet.DefaultProperty;
 import com.l2fprod.common.propertysheet.Property;
 
 /**
@@ -121,16 +123,21 @@ public class FollowReferenceControl extends SimpleRendererInteraction implements
     }
 
     @Override
+    public DefaultProperty[] getProperties() {
+        return PluginUtils.getPluginProperties(this);
+    }
+    
+    @Override
     public void setProperties(Property[] properties) {
-        super.setProperties(properties);
+        PluginUtils.setPluginProperties(this, properties);
         double z = depth;
         Z_UNITS units = Z_UNITS.DEPTH;
         if (z < 0) {
             units = Z_UNITS.ALTITUDE;
             z = -z;
         }
-
-        ref.setZ(new DesiredZ((float)z, units));
+        
+        ref.setZ(new DesiredZ((float)z, units).setValue(z));
         ref.setSpeed(new DesiredSpeed(speed, DesiredSpeed.SPEED_UNITS.METERS_PS));
     }
 
