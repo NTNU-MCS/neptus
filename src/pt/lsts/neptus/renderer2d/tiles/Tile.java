@@ -384,9 +384,22 @@ public abstract class Tile implements /*Renderer2DPainter,*/ Serializable {
         
         tileCacheDiskClearOrTileSaveLock.readLock().lock();
         try {
-            File outFile = new File(getTileFilePath());
-            outFile.mkdirs();
-            return ImageIO.write(image, TILE_FX_EXTENSION.toUpperCase(), outFile);
+			if(image != null){
+				File outFile = new File(getTileFilePath());
+				if(outFile != null)
+				{
+					outFile.mkdirs();
+					return ImageIO.write(image, TILE_FX_EXTENSION.toUpperCase(), outFile);
+				}
+				else{
+					System.out.println("Warning: Tile.java:381 - saveTile(): outFile == null");
+					return false;
+				}
+			}
+			else {
+				System.out.println("Warning: Tile.java:381 - saveTile(): image == null");
+				return false;
+			}
         }
         catch (IOException e) {
             e.printStackTrace();

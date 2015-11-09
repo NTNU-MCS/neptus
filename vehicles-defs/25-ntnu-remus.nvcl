@@ -5,16 +5,16 @@
         <id>ntnu-remus</id>
         <name>NTNU REMUS</name>
         <type>AUV</type>
-        <model>LAUV</model>
+        <model>REMUS</model>
         <appearance>
-            <x-size>1.4</x-size>
-            <y-size>0.3</y-size>
-            <z-size>0.54</z-size>
+            <x-size>1.6</x-size>
+            <y-size>0.19</y-size>
+            <z-size>0.19</z-size>
             <top-image-2D>../vehicles-files/lauv/lauv-seacon0-top.png</top-image-2D>
             <side-image-2D>../vehicles-files/lauv/lauv-seacon0-side.png</side-image-2D>
             <back-image-2D>../vehicles-files/lauv/lauv-seacon0-back.png</back-image-2D>
             <presentation-image-2D>../vehicles-files/lauv/lauv-seacon0-presentation.png</presentation-image-2D>
-            <model-3D>../vehicles-files/lauv/lauv-xtreme-2.x3d</model-3D>
+            <model-3D>../vehicles-files/lauv/lauv-seacon0.x3d</model-3D>
             <icon-color>
                 <r>255</r>
                 <g>255</g>
