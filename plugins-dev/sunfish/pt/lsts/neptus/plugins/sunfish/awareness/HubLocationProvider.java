@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2015 Universidade do Porto - Faculdade de Engenharia
+ * Copyright (c) 2004-2016 Universidade do Porto - Faculdade de Engenharia
  * Laboratório de Sistemas e Tecnologia Subaquática (LSTS)
  * All rights reserved.
  * Rua Dr. Roberto Frias s/n, sala I203, 4200-465 Porto, Portugal
@@ -36,17 +36,16 @@ import java.net.URL;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+import com.google.common.eventbus.Subscribe;
+import com.google.gson.Gson;
+
 import pt.lsts.imc.Announce;
 import pt.lsts.neptus.NeptusLog;
 import pt.lsts.neptus.comm.IMCUtils;
 import pt.lsts.neptus.comm.iridium.HubIridiumMessenger;
 import pt.lsts.neptus.comm.iridium.HubIridiumMessenger.HubSystemMsg;
-import pt.lsts.neptus.comm.manager.imc.ImcMsgManager;
 import pt.lsts.neptus.console.notifications.Notification;
 import pt.lsts.neptus.plugins.update.Periodic;
-
-import com.google.common.eventbus.Subscribe;
-import com.google.gson.Gson;
 
 
 /**
@@ -60,7 +59,7 @@ public class HubLocationProvider implements ILocationProvider {
     @Override
     public void onInit(SituationAwareness instance) {
         this.parent = instance;
-        ImcMsgManager.registerBusListener(this);   
+        instance.getConsole().getImcMsgManager().registerBusListener(this);   
     }
     
     LinkedHashMap<Integer, AssetPosition> positionsToSend = new LinkedHashMap<Integer, AssetPosition>();  
@@ -166,7 +165,7 @@ public class HubLocationProvider implements ILocationProvider {
 
     @Override
     public void onCleanup() {        
-        ImcMsgManager.unregisterBusListener(this);
+        parent.getConsole().getImcMsgManager().unregisterBusListener(this);
     }
 
     private boolean enabled = false;
