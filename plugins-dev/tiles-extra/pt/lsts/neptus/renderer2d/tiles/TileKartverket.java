@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.http.HttpHost;
 import org.apache.http.conn.routing.HttpRoute;
@@ -41,13 +42,15 @@ import pt.lsts.neptus.util.coord.MapTileUtil;
  * @author petternorgren
  *
  */
-@SuppressWarnings("deprecation")
+//@SuppressWarnings("deprecation")
 @MapTileProvider(name = "Statens Kartverk (Norway)")
 public class TileKartverket extends TileHttpFetcher {
 
     private static final long serialVersionUID = -7203527367652271594L;
 
     private static final String HOST = "openwms.statkart.no";
+	
+	private static final ReentrantLock lock = new ReentrantLock();
 
     protected static String tileClassId = TileKartverket.class.getSimpleName();
     
@@ -75,12 +78,12 @@ public class TileKartverket extends TileHttpFetcher {
         if (alreadyInitialize)
             return;
         alreadyInitialize = true;
-        httpConnectionManager.setMaxPerRoute(new HttpRoute(new HttpHost(HOST)), 8); // was setMaxForRoute
+        httpComm.getHttpConnectionManager().setMaxPerRoute(new HttpRoute(new HttpHost(HOST)), 8); // was setMaxForRoute
     }
 	
-	public static int getMaxLevelOfDetail() {
-        return MAX_LEVEL_OF_DETAIL;
-    }
+	//public static int getMaxLevelOfDetail() {
+     //   return MAX_LEVEL_OF_DETAIL;
+    //}
 
     /**
      * @return
@@ -91,8 +94,8 @@ public class TileKartverket extends TileHttpFetcher {
 		int imgSize = 256;
 		double[] imgBox = {0, 0, 0, 0};
 		
-        double[] ret = MapTileUtil.XYToDegrees(worldX, worldY, levelOfDetail);
-		double[] ret2 = MapTileUtil.XYToDegrees(worldX + imgSize, worldY + imgSize, levelOfDetail);
+        double[] ret = MapTileUtil.xyToDegrees(worldX, worldY, levelOfDetail);
+		double[] ret2 = MapTileUtil.xyToDegrees(worldX + imgSize, worldY + imgSize, levelOfDetail);
 		
 		imgBox[0] = Math.min(ret[1], ret2[1]);
 		imgBox[1] = Math.min(ret[0], ret2[0]);
@@ -112,9 +115,21 @@ public class TileKartverket extends TileHttpFetcher {
 	/* (non-Javadoc)
      * @see pt.lsts.neptus.renderer2d.tiles.TileHttpFetcher#getWaitTimeMillisToSeparateConnections()
      */
-    @Override
+    //@Override
+    //protected long getWaitTimeMillisToSeparateConnections() {
+     //   return (long) (10 * rnd.nextDouble());
+    //}
+	@Override
     protected long getWaitTimeMillisToSeparateConnections() {
-        return (long) (10 * rnd.nextDouble());
+        return (long) ((!isInStateForbidden()?800:5000) + ((!isInStateForbidden()?500:5000) * rnd.nextDouble()));
+    }
+	
+	/* (non-Javadoc)
+     * @see pt.lsts.neptus.renderer2d.tiles.TileHttpFetcher#getWaitTimeLock()
+     */
+    @Override
+    protected ReentrantLock getWaitTimeLock() {
+        return lock;
     }
     
     /**
@@ -138,5 +153,9 @@ public class TileKartverket extends TileHttpFetcher {
      */
     public static <T extends Tile> Vector<T> loadCache() {
         return Tile.loadCache(tileClassId);
+    }
+	
+	public static boolean isFetchableOrGenerated() {
+        return false;
     }
 }
