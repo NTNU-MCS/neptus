@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <system>
   <properties>
-    <id>asv-jetyak</id>
-    <name>ASV JETYAK</name>
-    <type>ASV</type>
-    <model>Jetyak</model>
+    <id>lauv-harald</id>
+    <name>LAUV HARALD</name>
+    <type>AUV</type>
+    <model>LAUV</model>
     <appearance>
-      <x-size>2.0</x-size>
-      <y-size>0.7</y-size>
-      <z-size>0.5</z-size>
+      <x-size>1.7</x-size>
+      <y-size>0.3</y-size>
+      <z-size>0.54</z-size>
       <top-image-2D>../vehicles-files/lauv/lauv-seacon0-top.png</top-image-2D>
       <side-image-2D>../vehicles-files/lauv/lauv-seacon0-side.png</side-image-2D>
       <back-image-2D>../vehicles-files/lauv/lauv-seacon0-back.png</back-image-2D>
@@ -32,12 +32,12 @@
             <coordinate>
               <latitude>0N</latitude>
               <longitude>0E</longitude>
-              <depth>0</depth>
+              <depth>2</depth>
             </coordinate>
           </point>
           <radiusTolerance>5</radiusTolerance>
         </finalPoint>
-        <velocity tolerance="10" type="float" unit="m/s">1.5</velocity>
+        <velocity tolerance="10" type="float" unit="m/s">1.2</velocity>
         <trajectoryTolerance>
           <radiusTolerance type="float">1</radiusTolerance>
         </trajectoryTolerance>
@@ -48,6 +48,28 @@
       </Goto>
     </maneuver>
     <maneuver>
+      <YoYo kind="automatic">
+        <finalPoint type="pointType">
+          <point>
+            <id>YoYo</id>
+            <coordinate>
+              <latitude>0N</latitude>
+              <longitude>0E</longitude>
+              <depth>2</depth>
+            </coordinate>
+          </point>
+          <radiusTolerance>5</radiusTolerance>
+        </finalPoint>
+        <amplitude>1</amplitude>
+        <pitch>0.17453292</pitch>
+        <speed type="float" unit="RPM">1200</speed>
+        <annotation>
+          <documentation>No documentation available</documentation>
+          <implementation-class>pt.lsts.neptus.mp.maneuvers.YoYo</implementation-class>
+        </annotation>
+      </YoYo>
+    </maneuver>
+    <maneuver>
       <Loiter kind="automatic">
         <basePoint type="pointType">
           <point>
@@ -56,14 +78,14 @@
             <coordinate>
               <latitude>0N</latitude>
               <longitude>0E</longitude>
-              <depth>0</depth>
+              <depth>2</depth>
             </coordinate>
           </point>
           <radiusTolerance>5</radiusTolerance>
         </basePoint>
         <duration>30</duration>
         <trajectory>
-          <radius type="float">25</radius>
+          <radius type="float">20</radius>
           <radiusTolerance type="float">5</radiusTolerance>
           <type>Circular</type>
           <length type="float">50</length>
@@ -93,7 +115,7 @@
         </basePoint>
         <duration>0</duration>
         <trajectory>
-          <radius type="float">25</radius>
+          <radius type="float">20</radius>
         </trajectory>
         <speed type="float" unit="m/s" tolerance="5">1.0</speed>
         <annotation>
@@ -116,7 +138,7 @@
           <radiusTolerance>0.0</radiusTolerance>
         </basePoint>
         <path/>
-        <speed unit="m/s">1.5</speed>
+        <speed unit="m/s">1.0</speed>
         <annotation>
           <documentation>No documentation available</documentation>
           <implementation-class>pt.lsts.neptus.mp.maneuvers.FollowPath</implementation-class>
@@ -197,12 +219,88 @@
         </annotation>
       </CrossHatchPattern>
     </maneuver>
+    <maneuver>
+      <Elevator>
+        <finalPoint type="pointType">
+          <point>
+            <id>Elevator-Point</id>
+            <coordinate>
+              <latitude>0N</latitude>
+              <longitude>0E</longitude>
+              <depth>0</depth>
+            </coordinate>
+          </point>
+          <radiusTolerance>0</radiusTolerance>
+        </finalPoint>
+        <startZ>0</startZ>
+        <startZUnits>DEPTH</startZUnits>
+        <pitch>30</pitch>
+        <radius>20</radius>
+        <duration>0</duration>
+        <speed unit="m/s">1.2</speed>
+        <annotation>
+          <documentation>No documentation available</documentation>
+          <implementation-class>pt.lsts.neptus.mp.maneuvers.Elevator</implementation-class>
+        </annotation>
+      </Elevator>
+    </maneuver>
+    <maneuver>
+      <CompassCalibration>
+        <finalPoint type="pointType">
+          <point>
+            <id>CCal</id>
+            <coordinate>
+              <latitude>0N</latitude>
+              <longitude>0E</longitude>
+              <height>0</height>
+            </coordinate>
+            <z>0.0</z>
+            <zunits>DEPTH</zunits>
+          </point>
+        </finalPoint>
+        <pitch>10.0</pitch>
+        <amplitude>0.1</amplitude>
+        <duration>1200</duration>
+        <speed type="float" unit="m/s">1.0</speed>
+        <radius>15.0</radius>
+        <direction>CLOCKW</direction>
+        <custom/>
+        <annotation>
+          <documentation>No documentation available</documentation>
+          <implementation-class>pt.lsts.neptus.mp.maneuvers.CompassCalibration</implementation-class>
+        </annotation>
+      </CompassCalibration>
+    </maneuver>
+    <maneuver>
+      <PopUp kind="automatic">
+        <finalPoint type="pointType">
+          <point>
+            <id>Pop</id>
+            <coordinate>
+              <latitude>0N</latitude>
+              <longitude>0E</longitude>
+              <height>-0</height>
+            </coordinate>
+            <z>0.0</z>
+            <zunits>DEPTH</zunits>
+          </point>
+          <radiusTolerance>10.0</radiusTolerance>
+        </finalPoint>
+        <duration>300</duration>
+        <speed tolerance="100.0" type="float" unit="m/s">1.2</speed>
+        <flags CurrPos="true" StationKeep="false" WaitAtSurface="false"/>
+        <annotation>
+          <documentation>No documentation available</documentation>
+          <implementation-class>pt.lsts.neptus.mp.maneuvers.PopUp</implementation-class>
+        </annotation>
+      </PopUp>
+    </maneuver>
   </feasibleManeuvers>
   <communication-means>
     <comm-mean>
       <name>ethernet</name>
       <type>ethernet</type>
-      <host-address>127.0.0.1</host-address>
+      <host-address>10.0.10.60</host-address>
       <protocols>imc</protocols>
       <latency value="100M" unit="bps"/>
       <protocols-args>
@@ -211,14 +309,14 @@
           <port-tcp>6002</port-tcp>
           <udp-on>true</udp-on>
           <tcp-on>false</tcp-on>
-          <imc-id>88:01</imc-id>
+          <imc-id>02:0d</imc-id>
         </imc>
       </protocols-args>
     </comm-mean>
   </communication-means>
   <consoles>
-    <console name="Jetyak Console">
-      <xml-file>../conf/consoles/jetyak.ncon</xml-file>
+    <console name="LAUV Console">
+      <xml-file>../conf/consoles/lauv.ncon</xml-file>
     </console>
   </consoles>
 </system>
