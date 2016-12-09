@@ -42,7 +42,6 @@ import pt.lsts.neptus.util.coord.MapTileUtil;
  * @author petternorgren
  *
  */
-//@SuppressWarnings("deprecation")
 @MapTileProvider(name = "Statens Kartverk (Norway)")
 public class TileKartverket extends TileHttpFetcher {
 
@@ -78,12 +77,12 @@ public class TileKartverket extends TileHttpFetcher {
         if (alreadyInitialize)
             return;
         alreadyInitialize = true;
-        httpComm.getHttpConnectionManager().setMaxPerRoute(new HttpRoute(new HttpHost(HOST)), 8); // was setMaxForRoute
+        httpComm.getHttpConnectionManager().setMaxPerRoute(new HttpRoute(new HttpHost(HOST)), 1); // was setMaxForRoute
     }
 	
-	//public static int getMaxLevelOfDetail() {
-     //   return MAX_LEVEL_OF_DETAIL;
-    //}
+	public static int getMaxLevelOfDetail() {
+        return MAX_LEVEL_OF_DETAIL;
+    }
 
     /**
      * @return
@@ -115,10 +114,6 @@ public class TileKartverket extends TileHttpFetcher {
 	/* (non-Javadoc)
      * @see pt.lsts.neptus.renderer2d.tiles.TileHttpFetcher#getWaitTimeMillisToSeparateConnections()
      */
-    //@Override
-    //protected long getWaitTimeMillisToSeparateConnections() {
-     //   return (long) (10 * rnd.nextDouble());
-    //}
 	@Override
     protected long getWaitTimeMillisToSeparateConnections() {
         return (long) ((!isInStateForbidden()?800:5000) + ((!isInStateForbidden()?500:5000) * rnd.nextDouble()));
