@@ -27,59 +27,58 @@
  * For more information please see <http://lsts.fe.up.pt/neptus>.
  *
  * Author: zp
- * Feb 24, 2014
+ * 31/10/2016
  */
-package pt.lsts.neptus.plugins.txtcmd;
+package org.necsave;
 
-import pt.lsts.neptus.mp.Maneuver.SPEED_UNITS;
-import pt.lsts.neptus.mp.templates.PlanCreator;
-import pt.lsts.neptus.plugins.NeptusProperty;
-import pt.lsts.neptus.plugins.PluginUtils;
+import java.util.LinkedHashMap;
+
+import pt.lsts.imc.EstimatedState;
+import pt.lsts.imc.IMCUtil;
+import pt.lsts.imc.lsf.LsfIndex;
+import pt.lsts.imc.lsf.LsfIterator;
+import pt.lsts.neptus.comm.IMCUtils;
+import pt.lsts.neptus.mra.MRAPanel;
+import pt.lsts.neptus.mra.plots.MRATimeSeriesPlot;
+import pt.lsts.neptus.plugins.PluginDescription;
 import pt.lsts.neptus.types.coord.LocationType;
-import pt.lsts.neptus.types.mission.MissionType;
-import pt.lsts.neptus.types.mission.plan.PlanType;
 
 /**
  * @author zp
  *
  */
-public class CommandGoto extends AbstractTextCommand {
+@PluginDescription(name="Distances Plot")
+public class MraDistancesPlot extends MRATimeSeriesPlot {
 
-    @NeptusProperty(name = "Destination")
-    LocationType dest = new LocationType();
-    
-    @NeptusProperty
-    double depth = 0;
-    
-    @NeptusProperty
-    double speed = 1.2;
-    
-    @Override
-    public String getCommand() {
-        return "go";
+    /**
+     * @param panel
+     */
+    public MraDistancesPlot(MRAPanel panel) {
+        super(panel);
     }
+
+    private LinkedHashMap<String, LocationType> lastLocations = new LinkedHashMap<>();
     
     @Override
-    public PlanType resultingPlan(MissionType mt) {
-        PlanCreator planCreator = new PlanCreator(mt);
-        planCreator.setSpeed(speed, SPEED_UNITS.METERS_PS);
-        planCreator.setLocation(dest);
-        planCreator.setDepth(depth);
-        planCreator.addGoto(null);
-        PlanType pt = planCreator.getPlan();
-        pt.setId("go");
-        return pt;        
+    public boolean canBeApplied(LsfIndex index) {
+        return index.containsMessagesOfType("EstimatedState");
     }
 
     @Override
-    public void setCenter(LocationType loc) {
-        dest = new LocationType(loc);
+    public void process(LsfIndex source) {
+        LsfIterator<EstimatedState> it = source.getIterator(EstimatedState.class);
+        
+        for (EstimatedState state = it.next(); it.hasNext(); state = it.next()) {
+            String src = state.getSourceName();
+            LocationType loc = IMCUtils.getLocation(state);
+            lastLocations.put(src, loc);
+            for (String sys : lastLocations.keySet()) {
+                if (sys.compareTo(src) <= 0)
+                    continue;
+                
+                double distance = lastLocations.get(sys).getHorizontalDistanceInMeters(loc);
+                addValue(state.getTimestampMillis(), src+"_"+sys, distance);
+            }
+        }        
     }
-
-    public static void main(String[] args) {
-        CommandGoto gt = new CommandGoto();
-        PluginUtils.editPluginProperties(gt, true);
-        System.out.println(gt.buildCommand());
-    }
-
 }
