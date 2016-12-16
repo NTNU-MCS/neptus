@@ -31,6 +31,7 @@
  */
 package pt.lsts.neptus.plugins.map;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -51,6 +52,7 @@ import java.util.Collections;
 import java.util.Timer;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -114,6 +116,9 @@ public class MapEditor extends ConsolePanel implements StateRendererInteraction,
         MissionChangeListener, ConfigurationListener {
 
     private static final long serialVersionUID = 1L;
+
+    protected static ImageIcon handIcon = ImageUtils.createImageIcon("images/icons/hand.png");
+    
     protected InteractionAdapter adapter;
     protected InteractionAdapter currentInteraction = null;
     protected UndoManager manager = createManager();
@@ -795,14 +800,13 @@ public class MapEditor extends ConsolePanel implements StateRendererInteraction,
             return;
         }
 
-        
         if (event.getButton() != MouseEvent.BUTTON1) {
             return;
         }
 
         testMouseIntersections();
 
-        if (!intersectedObjects.isEmpty()) {
+        if (!intersectedObjects.isEmpty() && event.getClickCount() > 1) {
             draggedObject = intersectedObjects.lastElement();
             orignalXML = draggedObject.asXML();
             originalObjLocation = new LocationType(draggedObject.getCenterLocation());
@@ -813,11 +817,11 @@ public class MapEditor extends ConsolePanel implements StateRendererInteraction,
 
             objectMoved = false;
         }
-        else 
+        else {
             adapter.mousePressed(event, source);
+        }
 
         mousePoint = event.getPoint();
-
     }
 
     @Override
@@ -1044,6 +1048,17 @@ public class MapEditor extends ConsolePanel implements StateRendererInteraction,
     @Override
     public void paintInteraction(Graphics2D g, StateRenderer2D source) {
         adapter.paintInteraction(g, source);
+
+        if (draggedObject != null && mousePoint != null) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.translate(mousePoint.x - handIcon.getImage().getWidth(null) / 2, 
+                    mousePoint.y - handIcon.getImage().getHeight(null) / 2);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            g2.drawImage(handIcon.getImage(), 0, 0, handIcon.getImage().getWidth(null),
+                    handIcon.getImage().getHeight(null), 0, 0, handIcon.getImage().getWidth(null),
+                    handIcon.getImage().getHeight(null), null);
+            g2.dispose();
+        }
     }
 
     /*

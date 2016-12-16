@@ -26,60 +26,42 @@
  *
  * For more information please see <http://lsts.fe.up.pt/neptus>.
  *
- * Author: zp
- * Feb 24, 2014
+ * Author: pdias
+ * 08/11/2016
  */
-package pt.lsts.neptus.plugins.txtcmd;
+package pt.lsts.neptus.comm;
 
-import pt.lsts.neptus.mp.Maneuver.SPEED_UNITS;
-import pt.lsts.neptus.mp.templates.PlanCreator;
-import pt.lsts.neptus.plugins.NeptusProperty;
-import pt.lsts.neptus.plugins.PluginUtils;
-import pt.lsts.neptus.types.coord.LocationType;
-import pt.lsts.neptus.types.mission.MissionType;
-import pt.lsts.neptus.types.mission.plan.PlanType;
+import java.io.IOException;
 
 /**
- * @author zp
+ * @author pdias
  *
  */
-public class CommandGoto extends AbstractTextCommand {
+@SuppressWarnings("serial")
+public class NoTransportAvailableException extends IOException {
 
-    @NeptusProperty(name = "Destination")
-    LocationType dest = new LocationType();
-    
-    @NeptusProperty
-    double depth = 0;
-    
-    @NeptusProperty
-    double speed = 1.2;
-    
-    @Override
-    public String getCommand() {
-        return "go";
-    }
-    
-    @Override
-    public PlanType resultingPlan(MissionType mt) {
-        PlanCreator planCreator = new PlanCreator(mt);
-        planCreator.setSpeed(speed, SPEED_UNITS.METERS_PS);
-        planCreator.setLocation(dest);
-        planCreator.setDepth(depth);
-        planCreator.addGoto(null);
-        PlanType pt = planCreator.getPlan();
-        pt.setId("go");
-        return pt;        
+    public NoTransportAvailableException() {
     }
 
-    @Override
-    public void setCenter(LocationType loc) {
-        dest = new LocationType(loc);
+    /**
+     * @param message
+     */
+    public NoTransportAvailableException(String message) {
+        super(message);
     }
 
-    public static void main(String[] args) {
-        CommandGoto gt = new CommandGoto();
-        PluginUtils.editPluginProperties(gt, true);
-        System.out.println(gt.buildCommand());
+    /**
+     * @param cause
+     */
+    public NoTransportAvailableException(Throwable cause) {
+        super(cause);
     }
 
+    /**
+     * @param message
+     * @param cause
+     */
+    public NoTransportAvailableException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

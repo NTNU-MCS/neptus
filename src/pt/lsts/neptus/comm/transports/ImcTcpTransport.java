@@ -326,9 +326,8 @@ public class ImcTcpTransport {
                             }
                             try {
                                 IMCMessage msg = imcDef.nextMessage(pis);
-//                                msg.dump(System.out);
-                                //double timeMillis = msg.getTimestampMillis();
-                                msgArrived(/*(long) timeMillis,*/ msg);
+                                if (msg != null)
+                                    msgArrived(/*(long) timeMillis,*/ msg);
                             }
                             catch (IOException e) {
                                 if (!"Unrecognized Sync word: 00".equalsIgnoreCase(e.getMessage()))
@@ -375,7 +374,8 @@ public class ImcTcpTransport {
 	            else {
 	                pos.write(req.getBuffer());
 	            }
-	        } catch (IOException e) {
+	        }
+	        catch (IOException e) {
 	            e.printStackTrace();
 	        }
 	    }

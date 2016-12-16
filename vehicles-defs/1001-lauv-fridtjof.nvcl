@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <system>
   <properties>
-    <id>lauv-harald</id>
-    <name>LAUV HARALD</name>
+    <id>lauv-fridtjof</id>
+    <name>LAUV FRIDTJOF</name>
     <type>AUV</type>
     <model>LAUV</model>
     <appearance>
@@ -300,7 +300,7 @@
     <comm-mean>
       <name>ethernet</name>
       <type>ethernet</type>
-      <host-address>10.0.10.60</host-address>
+      <host-address>10.0.10.70</host-address>
       <protocols>imc</protocols>
       <latency value="100M" unit="bps"/>
       <protocols-args>
@@ -309,7 +309,7 @@
           <port-tcp>6002</port-tcp>
           <udp-on>true</udp-on>
           <tcp-on>false</tcp-on>
-          <imc-id>20:0d</imc-id>
+          <imc-id>02:0e</imc-id>
         </imc>
       </protocols-args>
     </comm-mean>

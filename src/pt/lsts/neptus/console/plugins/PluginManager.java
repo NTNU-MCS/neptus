@@ -42,6 +42,7 @@ import java.awt.event.MouseEvent;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -480,6 +481,23 @@ public class PluginManager extends ConsolePanel {
             names.add(interaction.getName());
             pluginsMap.put(interaction.getName(), interaction);
         }
+
+        String firstPanel = names.isEmpty() ? null : names.get(0);
+        // Natural sort
+        Collections.sort(names, new Comparator<String>() {
+            private Collator collator = Collator.getInstance(Locale.US);
+            @Override
+            public int compare(String o1, String o2) {
+                if (firstPanel != null) {
+                    if (firstPanel.equals(o1))
+                        return -1;
+                    if (firstPanel.equals(o2))
+                        return 1;
+                }
+                
+                return collator.compare(o1, o2);
+            }
+        });
 
         activePluginsList.setListData(names.toArray(new String[0]));
     }
