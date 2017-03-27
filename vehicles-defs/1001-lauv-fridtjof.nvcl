@@ -301,6 +301,7 @@
       <name>ethernet</name>
       <type>ethernet</type>
       <host-address>10.0.10.70</host-address>
+      <!--<host-address>127.0.0.1</host-address>-->
       <protocols>imc</protocols>
       <latency value="100M" unit="bps"/>
       <protocols-args>
